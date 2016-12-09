@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+   <project name="A3" default="main">
+   <patternset id="files">
+   <include name="src/*/*.java"/>
+	</patternset>
+
+    <property name="src.dir"     value="src"/>
+	<property name="classes.dir" value="bin"/>
+<!-- the directory of the jar file -->
+    <property name="jar.dir" value="."/>
+
+    <!-- the jar file itself -->
+
+	<property name="build.dir"     value="."/>
+
+    <property name="main-class"  value="solver.Runner"/>
+    <target name="clean">
+    </target>
+
+    <target name="compile">
+        <mkdir dir="${classes.dir}"/>
+        <javac includeantruntime="false" srcdir="${src.dir}" destdir="${classes.dir}"/>
+    </target>
+
+    <target name="jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/a3-COMP3702-43203714" basedir="${classes.dir}">
+            <manifest>
+                <attribute name="Main-Class" value="${main-class}"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar">
+        <java jar="${jar.dir}/a3-COMP3702-43203714" fork="true">
+		      <arg value="${arg0}"/>
+			  <arg value="${arg1}"/>
+		  </java>
+    </target>
+
+    <target name="clean-build" depends="clean,jar"/>
+
+    <target name="main" depends="clean,run"/>
+
+   
+</project>
